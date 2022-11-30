@@ -1,0 +1,90 @@
+<!-- EJS FILE FOR SEARCH PAGE WITH INTERACTIVE GLOBE -->
+<!-- CS3340A SOFTWARE ENGINEERING -->
+<!-- SURF THE GLOBE PROJECT -->
+<!-- SPRING 2022 -->
+<!-- SARAH FLORES, MATTHEW OLIVAREZ, GABY RUBAN, VIVIAN VU, MIRSAB ZAR -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surf</title>
+    <link rel="stylesheet" href="/css/news-globe-styles.css">
+    <script type="importmap">
+        {
+            "imports": 
+            {
+              "three": "/build/three.module.js",
+              "three/examples/jsm/controls/OrbitControls":"/jsm/controls/OrbitControls.js",
+              "three/examples/jsm/libs/stats.module":"/jsm/libs/stats.module.js",
+              "three/examples/jsm/libs/dat.gui.module":"/jsm/libs/dat.gui.module.js"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    
+    <div class="container">
+        <div id="globe-canvas">
+
+        </div>
+        <div class="wrapper">
+            <div class="home-div">
+                <button class="home-button"><a href="/">Home</a></button>
+            </div>
+            <div class="latlongDisplay">
+                <!-- <form action="/search" method="post" class="form-example" id="formSubmit">
+                    <div class="form-example">
+                        <label for="latitude">Latitude: </label>
+                        <input type="number" step="0.000001" name="latitude" id="latitude" required>
+                    </div>
+                    <div class="form-example">
+                        <label for="longitude">Longitude: </label>
+                        <input type="number" step="0.000001" name="longitude" id="longitude" required>
+                    </div>
+                    <div class="form-example">
+                        <input type="submit" value="Search">
+                    </div>
+                </form> -->
+                <form class="form-inline" action="/search" method="POST" id="formSubmit">
+                    <label for="latitude">Latitude: </label>
+                    <input type="number" step="0.000001" name="latitude" id="latitude" required>
+                    <label for="longitude">Longitude: </label>
+                    <input type="number" step="0.000001" name="longitude" id="longitude" required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="help-div">
+                <button class="help-button" data-modal-target="#modal">Help</button>
+            </div>
+            <div class="on-screen-info" id="instructions">
+                <h3>Click-and-drag the globe, and click a country to explore. Then click search!</h3>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <div class="modal-title"><h3>News Globe Help Screen</h3></div>
+            <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <h3>Option 1 (Preferred):</h3>
+            <p>1. Interact with globe to find country you'd like information about</p>
+            <p>2. Click that country</p>
+            <p>3. Ensure the latitude and longitude form is filled out</p>
+            <p>4. Click Search</p>
+            <h3>Option 2:</h3>
+            <p>1. Enter valid latitude and longitude coordinate points into the form</p>
+            <p>2. Click Search</p>
+        </div>
+    </div>
+    <div id="overlay"></div>
+    <script type="module" src="/js/news-globe.js"></script>
+    <!-- <button id="darkMode">Dark Mode</button> -->
+    <!-- <script type="module" src="./js/news-main.js"></script> -->
+</body>
+</html>

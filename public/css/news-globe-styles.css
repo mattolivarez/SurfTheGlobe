@@ -1,0 +1,341 @@
+/*
+CSS FILE FOR SEARCH PAGE WITH INTERACTIVE GLOBE
+CS3340A SOFTWARE ENGINEERING
+SURF THE GLOBE PROJECT
+SPRING 2022
+SARAH FLORES, MATTHEW OLIVAREZ, GABY RUBAN, VIVIAN VU, MIRSAB ZAR
+*/
+*
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html 
+{
+    scroll-behavior: smooth;
+}
+
+body
+{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: "Montserrat", "Avenir";
+}
+
+h1
+{
+    color:white; 
+}
+
+p
+{
+    margin: 1rem 0;
+}
+
+#globe-canvas
+{
+    position: absolute;
+    z-index: 0;
+}
+
+.wrapper
+{
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    /* grid-template-rows: repeat(3, 1fr); */
+    gap: 10px;
+    /* grid-auto-rows: 100%; */
+    grid-template-areas:
+        ". . . a b b b b b b b c . . . ."
+        ". d d d . . . . . . . . . . . .";
+    align-items: start;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container
+{
+    /* position: absolute; */
+    height: 100vh;
+    width: 100vw;
+}
+
+
+.latlongDisplay 
+{
+    grid-area: b;
+    /* align-self: flex-end; */
+    justify-self: center;
+    z-index: 2;
+}
+
+.help-div
+{
+    grid-area: c;
+    z-index: 2;
+}
+
+.home-div
+{
+    grid-area: a;
+    z-index: 2;
+}
+
+.on-screen-info
+{
+    color: white;
+    grid-area: d;
+    z-index: 2;
+}
+
+/* Style the form - display items horizontally */
+.form-inline 
+{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+/* Add some margins for each label */
+.form-inline label 
+{
+    margin: 5px 10px 5px 0;
+}
+
+/* Style the input fields */
+.form-inline input 
+{
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    /* background-color: #fff;
+    border: 1px solid #ddd; */
+}
+
+/* Style the submit button */
+.form-inline button 
+{
+    padding: 10px 20px;
+}
+
+.help-button
+{
+    margin: 5px 10px 5px 0;
+    padding: 10px 20px;
+}
+
+.home-button
+{
+    margin: 5px 10px 5px 0;
+    padding: 10px 20px;
+}
+
+label 
+{
+    /* padding-right: 10px; */
+    color: white;
+}
+
+a:link 
+{
+	/* color: steelblue; */
+	text-decoration: none;
+    color: black;
+}
+
+a:visited 
+{
+	color: black;
+	text-decoration: none;
+}
+
+/* next 2 selectors remove arrows on form inputs  */
+/* for firefox */
+input[type=number]
+{
+    -moz-appearance: textfield;
+}
+/* for all other browsers */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button 
+{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.modal
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+}
+
+.modal.active
+{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header
+{
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.modal-header .modal-title
+{
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-header .close-button
+{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-body
+{
+    padding: 10px 15px;
+}
+
+#overlay
+{
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    pointer-events: none;
+}
+
+#overlay.active
+{
+    opacity: 1;
+    pointer-events: all;
+}
+
+@media (max-width: 1455px)
+{
+    .wrapper
+    {
+        grid-template-areas:
+        ". . a b b b b b b b b b c . .";
+    }
+    .on-screen-info
+    {
+        display: none;
+    }
+}
+
+@media (max-width: 1175px)
+{
+    .wrapper
+    {
+        grid-template-areas:
+        ". a b b b b b b b b b b b c .";
+    }
+    .on-screen-info
+    {
+        display: none;
+    }
+}
+
+@media (max-width: 992px)
+{
+    .wrapper
+    {
+        grid-template-areas:
+        "a b b b b b b b b b b b b b c";
+    }
+    .on-screen-info
+    {
+        display: none;
+    }
+}
+
+@media (max-width: 867px)
+{
+    .wrapper
+    {
+        grid-template-areas:
+        ". . . . a . . . . . . c . . . ."
+        "b b b b b b b b b b b b b b b b";
+    }
+    .latlongDisplay
+    {
+        align-self: flex-end;
+    }
+    .on-screen-info
+    {
+        display: none;
+    }
+}
+
+/* @media (max-width: 627px)
+{
+    
+} */
+
+/* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide 
+@media (max-width: 1455px) 
+{
+    .wrapper
+    {
+        grid-template-areas:
+            ". . . . a . . . . . . b . . . ."
+            ". . . . . . . . . . . . . . . ."
+            ". . . . . . . . . . . . . . . ."
+            ". . . d d d d d d d d d . . . ."
+            ". . . . . . . . . . . . . . . .";
+        align-self: flex-end; 
+        grid-auto-rows: 120%;
+    }
+    .latlongDisplay
+    {
+        align-self: flex-end;
+        margin-bottom: 2.5rem; 
+        grid-area: d;
+    }
+    .help-div
+    {
+        grid-area: b;
+    }
+
+    .home-div
+    {
+        grid-area: a;
+    }
+    .form-inline input 
+    {
+        margin: 10px 0;
+    }
+
+    .form-inline 
+    {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+}
+*/

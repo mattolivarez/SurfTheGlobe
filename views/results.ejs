@@ -1,0 +1,169 @@
+<!-- EJS FILE FOR RESULTS PAGE -->
+<!-- CS3340A SOFTWARE ENGINEERING -->
+<!-- SURF THE GLOBE PROJECT -->
+<!-- SPRING 2022 -->
+<!-- SARAH FLORES, MATTHEW OLIVAREZ, GABY RUBAN, VIVIAN VU, MIRSAB ZAR -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="css/results-styles.css">
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <title>Results of Search</title>
+
+
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- <header class="w3-container w3-top w3-teal w3-xlarge w3-padding-16">
+            <span class="w3-right w3-padding">SURF THE GLOBE</span>
+        </header> -->
+        <header>
+            <span><h1>SURF THE GLOBE</h1></span>
+        </header>
+        
+        <div class="wrapper">
+
+            <aside>
+                <!-- <div class="corner-title">
+                    <h4>Surf the Globe</h4>
+                </div> -->
+                
+                <div class="links">
+                    <ul>
+                        <li>
+                            <a href="/">
+                                <button class="Home"><i class="fas fa-home"></i><br>Home</button>
+                            </a>
+                        </li>
+                        <li>
+                            <button class="tablinks active" onclick="openInfo(event, 'News')"><i class="fas fa-rss"></i><br>News</button>
+                        </li>
+                        <li>
+                            <button class="tablinks" onclick="openInfo(event, 'Facts')"><i class="fas fa-book"></i><br>Facts</button>
+                        </li>
+                        <li>
+                            <button class="tablinks" onclick="openInfo(event, 'Culture')"><i class="fas fa-music"></i><br>Culture</button>
+                        </li>
+                        <li>
+                            <button class="tablinks" onclick="openInfo(event, 'Health')"><i class="fas fa-heart"></i><br>Health</button>
+                        </li>
+                        <li>
+                            <a href="/news">
+                                <button class="Back"><i class="fas fa-arrow-left"></i><br>Previous Page</button>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </aside>
+
+            <!-- <div class="rightbar">
+                <a href="/">Home
+                    <br>
+                    <i class="fas fa-arrow"></i>
+                </a>
+                <a href="/news">New Search
+                    <br>
+                    <i class="fas fa-arrow"></i>
+                </a>
+            </div> -->
+
+            
+            
+            <main>
+                <div class="mainHeading">
+                    <h1><%= countryName %> Informational Page</h1>
+                    <hr style="height: 3px; background-color: black">
+                </div>
+
+                <div class="content">
+                    <div id="News" class="tabcontent"> <!-- row articles  -->
+                        <h1>News</h1>
+                        <h2>Top 9 Articles in <%= countryName %>!</h2>
+                        <div class="articles">
+                            <% for (let i = 0; i < newsStories.length - 1; i++) { %>
+                            <div class="news-story">
+                                <h3><%= newsStories[i].title %></h3>
+                                <h5>Story by <%= newsStories[i].author %></h5>
+                                <p><%= newsStories[i].description %></p>
+                                <p><a href="<%= newsStories[i].url %>">Read full story here</a></p>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+        
+                    <div id="Facts" class="tabcontent">
+                        <h1 class="subtitle">Facts</h1>
+                        <img src="<%= countryFacts[0][0].flags.png %>"/>
+                        <h3>Official Name: <%= countryFacts[0][0].name.official %></h3>
+                        <h3>Capital: <%= countryFacts[0][0].capital %></h3>
+                        <h3>Region: <%= countryFacts[0][0].region %></h3>
+                        <h3>Subregion: <%= countryFacts[0][0].subregion %></h3>
+                        <h3>Language:
+                            <% Object.keys(countryFacts[0][0].languages).forEach((key, index) => { %>
+                                <%- countryFacts[0][0].languages[key] %>
+                            <% }) %>
+                        </h3>
+                        <h3>Currency Name: 
+                            <% Object.keys(countryFacts[0][0].currencies).forEach((key, index) => { %>
+                                <%- countryFacts[0][0].currencies[key].name %>
+                            <% }) %>
+                        </h3>
+                        <h3>Currency Symbol:
+                            <% Object.keys(countryFacts[0][0].currencies).forEach((key, index) => { %>
+                                <%- countryFacts[0][0].currencies[key].symbol %>
+                            <% }) %>
+                        </h3> 
+                    </div>
+                
+                    <div id="Culture" class="tabcontent">
+                        <h1>Culture</h1>
+
+                        <h2>Top 5 Songs in <%= countryName %>!
+                        <img src="https://www.trustedreviews.com/wp-content/uploads/sites/54/2018/02/Spotify-Logo.jpg" alt="Spotify" style=" float: right;width:526.5px;height:238px;"> </h2>
+                    
+                        <% let j=1 %>
+                        <% for (let i = 0; i < cultureData.length - 1; i++) { %>
+                        
+                        <div class="cultureData">
+                            <p><%= j%>. <%= cultureData[i].track_title %></p>
+                            <% j++ %>
+                        </div>
+                        <% } %>    
+                        <hr>
+                    </div>
+                    
+                    <div id="Health" class="tabcontent">
+                        <h1>Health Information</h1>
+                        <h2>As of <%=  healthData[0] %>
+                        <img src="https://get.pxhere.com/photo/covid-19-coronavirus-covid-cell-pandemic-corona-virus-red-fractal-art-organism-textile-pollen-crochet-art-plant-doily-flower-macro-photography-symmetry-still-life-photography-1608796.jpg" alt="Covid" style=" float: right;width:490.5px;height:275.875px;"> </h2>
+                        <div class = "casedata">
+                            <p>Population: <%=  healthData[1] %> people</p>
+                            <p>Life Expectancy: <%=  healthData[2] %> years</p>
+                            <p>Total Deaths: <%=  healthData[3] %> people</p>
+                            <p>New Deaths: <%=  healthData[4] %> people</p>
+                            <p>Total COVID-19 Cases: <%=  healthData[5] %> people</p>
+                            <p>New COVID-19 Cases: <%=  healthData[6] %> people</p>
+
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="js/results.js"></script>
+
+</body>
+</html>
